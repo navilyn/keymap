@@ -32,7 +32,7 @@
             compatible = "zmk,behavior-hold-tap";
             label = "HOMEROW_MODS";
             #binding-cells = <2>;
-            tapping-term-ms = <200>;
+            tapping-term-ms = <175>;
             quick-tap-ms = <0>;
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
@@ -42,16 +42,24 @@
             compatible = "zmk,behavior-tap-dance";
             label = "TAP_DANCE_0";
             #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&kp SQT>, <&kp SEMI>;
+            tapping-term-ms = <150>;
+            bindings = <&kp SEMICOLON>, <&kp SQT>;
         };
 
         td1: tap_dance_1 {
             compatible = "zmk,behavior-tap-dance";
             label = "TAP_DANCE_1";
             #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&mt LCTRL TAB>, <&kp ESC>;
+            tapping-term-ms = <150>;
+            bindings = <&kp ESCAPE>, <&helixregistry>;
+        };
+
+        td_delete: td_delete {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TD_DELETE";
+            #binding-cells = <0>;
+            tapping-term-ms = <120>;
+            bindings = <&mt LEFT_ALT DELETE>, <&kp CAPSLOCK>;
         };
     };
 
@@ -62,12 +70,6 @@
             timeout-ms = <50>;
             key-positions = <13 16>;
             bindings = <&caps_word>;
-        };
-
-        combo_vimwq {
-            timeout-ms = <50>;
-            key-positions = <1 2>;
-            bindings = <&vim_quit>;
         };
 
         delword {
@@ -133,6 +135,13 @@
             #binding-cells = <0>;
             bindings = <&macro_tap>, <&kp ESC &kp COLON &kp W &kp Q>;
         };
+
+        helixregistry: helixregistry {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp DOUBLE_QUOTES &kp PLUS>;
+            label = "HELIXREGISTRY";
+        };
     };
 
     keymap {
@@ -140,10 +149,10 @@
 
         default_layer {
             bindings = <
-&none  &kp Q       &kp W       &kp E        &kp R            &kp T                 &kp Y            &kp U           &kp I           &kp O       &td0            &none
-&none  &hm LGUI A  &hm LALT S  &hm LCTRL D  &hm LSHIFT F     &kp G                 &kp H            &hm RSHIFT J    &hm RCTRL K     &hm RALT L  &hm LEFT_WIN P  &none
-&none  &kp Z       &kp X       &kp C        &kp V            &kp B                 &kp N            &kp M           &kp COMMA       &kp DOT     &kp FSLH        &none
-                               &td1         &lt 1 BACKSPACE  &mt LEFT_WIN SPACE    &mt LCTRL ENTER  &lt 2 CAPSLOCK  &mt RALT GRAVE
+&none  &kp Q       &kp W       &kp E        &kp R         &kp T               &kp Y          &kp U            &kp I        &kp O       &td0            &none
+&none  &hm LGUI A  &hm LALT S  &hm LCTRL D  &hm LSHIFT F  &kp G               &kp H          &hm RSHIFT J     &hm RCTRL K  &hm RALT L  &hm LEFT_WIN P  &none
+&none  &kp Z       &kp X       &kp C        &kp V         &kp B               &kp N          &kp M            &kp COMMA    &kp DOT     &kp FSLH        &none
+                               &td1         &lt 1 SPACE   &mt LEFT_WIN TAB    &mt ENTER TAB  &lt 2 BACKSPACE  &td_delete
             >;
         };
 
@@ -158,9 +167,9 @@
 
         sym_layer {
             bindings = <
-&none  &kp EXCL   &kp AT     &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR  &kp RIGHT_PARENTHESIS  &none
-&none  &kp GRAVE  &kp TILDE  &none     &none     &none        &kp MINUS  &kp EQUAL  &kp LBKT         &kp RBKT  &kp BACKSLASH          &none
-&none  &kp TILDE  &none      &none     &none     &none        &kp UNDER  &kp PLUS   &kp LBRC         &kp RBRC  &kp PIPE               &none
+&none  &kp EXCL   &kp AT     &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp ASTERISK  &kp LPAR  &kp RIGHT_PARENTHESIS  &none
+&none  &kp GRAVE  &kp TILDE  &none     &none     &none        &kp MINUS  &kp EQUAL  &kp LBKT      &kp RBKT  &kp BACKSLASH          &none
+&none  &kp TILDE  &none      &none     &none     &none        &kp UNDER  &kp PLUS   &kp LBRC      &kp RBRC  &kp PIPE               &none
                              &trans    &trans    &trans       &trans     &trans     &trans
             >;
         };
